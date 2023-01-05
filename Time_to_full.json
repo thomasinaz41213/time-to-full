@@ -1,0 +1,1002 @@
+[
+    {
+        "id": "e203a909ffa59ebd",
+        "type": "tab",
+        "label": "Charging time to full",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "eb75af28ad840318",
+        "type": "join",
+        "z": "e203a909ffa59ebd",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1250,
+        "y": 180,
+        "wires": [
+            [
+                "fceba906605df11a"
+            ]
+        ]
+    },
+    {
+        "id": "fceba906605df11a",
+        "type": "calculator",
+        "z": "e203a909ffa59ebd",
+        "name": "calculate time to full",
+        "inputMsgField": "payload",
+        "outputMsgField": "payload",
+        "operation": "div",
+        "constant": "",
+        "round": true,
+        "decimals": "2",
+        "x": 1590,
+        "y": 160,
+        "wires": [
+            [
+                "3d862470441d2c63"
+            ]
+        ]
+    },
+    {
+        "id": "8bd8b8ad73bf883d",
+        "type": "calculator",
+        "z": "e203a909ffa59ebd",
+        "name": "average the results",
+        "inputMsgField": "payload",
+        "outputMsgField": "payload",
+        "operation": "avg",
+        "constant": "",
+        "round": true,
+        "decimals": "2",
+        "x": 2110,
+        "y": 160,
+        "wires": [
+            [
+                "ca09ab7cd4b41b4d",
+                "b264b0fe0c5df6db"
+            ]
+        ]
+    },
+    {
+        "id": "3d862470441d2c63",
+        "type": "join",
+        "z": "e203a909ffa59ebd",
+        "name": "averaging interval",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "30",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1830,
+        "y": 160,
+        "wires": [
+            [
+                "8bd8b8ad73bf883d"
+            ]
+        ]
+    },
+    {
+        "id": "4801cd44d0b60e1c",
+        "type": "comment",
+        "z": "e203a909ffa59ebd",
+        "name": "set averaging time",
+        "info": "set this time to the averaging interval desired",
+        "x": 1830,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ca09ab7cd4b41b4d",
+        "type": "debug",
+        "z": "e203a909ffa59ebd",
+        "name": "calculated time debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2360,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b264b0fe0c5df6db",
+        "type": "ui_gauge",
+        "z": "e203a909ffa59ebd",
+        "name": "time to full",
+        "group": "29f036985f65b357",
+        "order": 6,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Charge Time To Full",
+        "label": "HRS",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2330,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c90502c053fd5e5a",
+        "type": "calculator",
+        "z": "e203a909ffa59ebd",
+        "name": "charge efficiency",
+        "inputMsgField": "payload",
+        "outputMsgField": "payload",
+        "operation": "div",
+        "constant": "0.98",
+        "round": false,
+        "decimals": 0,
+        "x": 810,
+        "y": 200,
+        "wires": [
+            [
+                "0f404c062b30301c"
+            ]
+        ]
+    },
+    {
+        "id": "6cfc43ef1f1618da",
+        "type": "change",
+        "z": "e203a909ffa59ebd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "complete",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 100,
+        "wires": [
+            [
+                "eb75af28ad840318"
+            ]
+        ]
+    },
+    {
+        "id": "0f404c062b30301c",
+        "type": "change",
+        "z": "e203a909ffa59ebd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1080,
+        "y": 200,
+        "wires": [
+            [
+                "eb75af28ad840318"
+            ]
+        ]
+    },
+    {
+        "id": "312905188c1808d8",
+        "type": "switch",
+        "z": "e203a909ffa59ebd",
+        "name": "compare to tail current",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "lte",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "6cfc43ef1f1618da"
+            ],
+            [
+                "6ef1bfb3ce396579"
+            ]
+        ]
+    },
+    {
+        "id": "6ef1bfb3ce396579",
+        "type": "change",
+        "z": "e203a909ffa59ebd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 140,
+        "wires": [
+            [
+                "b264b0fe0c5df6db",
+                "6cfc43ef1f1618da"
+            ]
+        ]
+    },
+    {
+        "id": "3e466949e5f1abc7",
+        "type": "inject",
+        "z": "e203a909ffa59ebd",
+        "name": "Full @ ?? soc",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "100",
+        "payloadType": "num",
+        "x": 180,
+        "y": 320,
+        "wires": [
+            [
+                "b397915dadbb9d91"
+            ]
+        ]
+    },
+    {
+        "id": "c09da9d4af91eb62",
+        "type": "change",
+        "z": "e203a909ffa59ebd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "complete",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 380,
+        "wires": [
+            [
+                "b397915dadbb9d91"
+            ]
+        ]
+    },
+    {
+        "id": "b397915dadbb9d91",
+        "type": "join",
+        "z": "e203a909ffa59ebd",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "27d3ccf69afa09ad"
+            ]
+        ]
+    },
+    {
+        "id": "27d3ccf69afa09ad",
+        "type": "calculator",
+        "z": "e203a909ffa59ebd",
+        "name": "",
+        "inputMsgField": "payload",
+        "outputMsgField": "payload",
+        "operation": "sub",
+        "constant": "",
+        "round": true,
+        "decimals": "2",
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "6ed55cb77fd11b42"
+            ]
+        ]
+    },
+    {
+        "id": "6ed55cb77fd11b42",
+        "type": "calculator",
+        "z": "e203a909ffa59ebd",
+        "name": "Multiplier",
+        "inputMsgField": "payload",
+        "outputMsgField": "payload",
+        "operation": "mult",
+        "constant": "4.2",
+        "round": true,
+        "decimals": "2",
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "c90502c053fd5e5a"
+            ]
+        ]
+    },
+    {
+        "id": "2b3a3272c866360d",
+        "type": "victron-input-system",
+        "z": "e203a909ffa59ebd",
+        "service": "com.victronenergy.system",
+        "path": "/Dc/Battery/Soc",
+        "serviceObj": {
+            "service": "com.victronenergy.system",
+            "name": "com.victronenergy.system",
+            "paths": [
+                {
+                    "path": "/Ac/ActiveIn/Source",
+                    "type": "enum",
+                    "name": "AC-Input",
+                    "enum": {
+                        "0": "Not available",
+                        "1": "Grid",
+                        "2": "Generator",
+                        "3": "Shore",
+                        "240": "Inverting"
+                    }
+                },
+                {
+                    "path": "/Ac/Consumption/L1/Power",
+                    "type": "float",
+                    "name": "AC Consumption L1 (W)"
+                },
+                {
+                    "path": "/Ac/Consumption/L2/Power",
+                    "type": "float",
+                    "name": "AC Consumption L2 (W)"
+                },
+                {
+                    "path": "/Ac/Consumption/L3/Power",
+                    "type": "float",
+                    "name": "AC Consumption L3 (W)"
+                },
+                {
+                    "path": "/Ac/Genset/DeviceType",
+                    "type": "float",
+                    "name": "Genset Device Type",
+                    "enum": {}
+                },
+                {
+                    "path": "/Ac/Genset/L1/Power",
+                    "type": "float",
+                    "name": "Genset L1 (W)"
+                },
+                {
+                    "path": "/Ac/Genset/L2/Power",
+                    "type": "float",
+                    "name": "Genset L2 (W)"
+                },
+                {
+                    "path": "/Ac/Genset/L3/Power",
+                    "type": "float",
+                    "name": "Genset L3 (W)"
+                },
+                {
+                    "path": "/Ac/Genset/NumberOfPhases",
+                    "type": "integer",
+                    "name": "Genset Number Of Phases"
+                },
+                {
+                    "path": "/Ac/Grid/DeviceType",
+                    "type": "float",
+                    "name": "Grid Device Type"
+                },
+                {
+                    "path": "/Ac/Grid/L1/Power",
+                    "type": "float",
+                    "name": "Grid L1 (W)"
+                },
+                {
+                    "path": "/Ac/Grid/L2/Power",
+                    "type": "float",
+                    "name": "Grid L2 (W)"
+                },
+                {
+                    "path": "/Ac/Grid/L3/Power",
+                    "type": "float",
+                    "name": "Grid L3 (W)"
+                },
+                {
+                    "path": "/Ac/Grid/NumberOfPhases",
+                    "type": "integer",
+                    "name": "Grid Number Of Phases"
+                },
+                {
+                    "path": "/Ac/PvOnGenset/L1/Power",
+                    "type": "float",
+                    "name": "PV Power AC-tied on Generator L1"
+                },
+                {
+                    "path": "/Ac/PvOnGenset/L2/Power",
+                    "type": "float",
+                    "name": "PV Power AC-tied on Generator L2"
+                },
+                {
+                    "path": "/Ac/PvOnGenset/L3/Power",
+                    "type": "float",
+                    "name": "PV Power AC-tied on Generator L3"
+                },
+                {
+                    "path": "/Ac/PvOnGenset/NumberOfPhases",
+                    "type": "integer",
+                    "name": "PV Power AC-tied on Generator Number Of Phases"
+                },
+                {
+                    "path": "/Ac/PvOnGrid/L1/Power",
+                    "type": "float",
+                    "name": "PV - AC-coupled on input L1 (W)"
+                },
+                {
+                    "path": "/Ac/PvOnGrid/L2/Power",
+                    "type": "float",
+                    "name": "PV - AC-coupled on input L2 (W)"
+                },
+                {
+                    "path": "/Ac/PvOnGrid/L3/Power",
+                    "type": "float",
+                    "name": "PV - AC-coupled on input L3 (W)"
+                },
+                {
+                    "path": "/Ac/PvOnGrid/NumberOfPhases",
+                    "type": "integer",
+                    "name": "PV - AC-coupled on input Number Of Phases"
+                },
+                {
+                    "path": "/Ac/PvOnOutput/L1/Power",
+                    "type": "float",
+                    "name": "PV - AC-coupled on output L1 (W)"
+                },
+                {
+                    "path": "/Ac/PvOnOutput/L2/Power",
+                    "type": "float",
+                    "name": "PV - AC-coupled on output L2 (W)"
+                },
+                {
+                    "path": "/Ac/PvOnOutput/L3/Power",
+                    "type": "float",
+                    "name": "PV - AC-coupled on output L3 (W)"
+                },
+                {
+                    "path": "/Ac/PvOnOutput/NumberOfPhases",
+                    "type": "integer",
+                    "name": "PV - AC-coupled on output Number Of Phases"
+                },
+                {
+                    "path": "/Buzzer/State",
+                    "type": "float",
+                    "name": "Buzzer State",
+                    "enum": {
+                        "0": "Off",
+                        "1": "On"
+                    }
+                },
+                {
+                    "path": "/Dc/Battery/ConsumedAmphours",
+                    "type": "float",
+                    "name": "Battery Consumed Amphours (Ah)"
+                },
+                {
+                    "path": "/Dc/Battery/Current",
+                    "type": "float",
+                    "name": "Battery current (A)"
+                },
+                {
+                    "path": "/Dc/Battery/Power",
+                    "type": "float",
+                    "name": "Battery Power (W)"
+                },
+                {
+                    "path": "/Dc/Battery/Soc",
+                    "type": "float",
+                    "name": "Battery State of Charge (%)"
+                },
+                {
+                    "path": "/Dc/Battery/State",
+                    "type": "enum",
+                    "name": "Battery state",
+                    "enum": {
+                        "0": "idle",
+                        "1": "charging",
+                        "2": "discharging"
+                    }
+                },
+                {
+                    "path": "/Dc/Battery/Temperature",
+                    "type": "float",
+                    "name": "Battery temperature (C)"
+                },
+                {
+                    "path": "/Dc/Battery/TimeToGo",
+                    "type": "float",
+                    "name": "Battery Time to Go (h)"
+                },
+                {
+                    "path": "/Dc/Battery/Voltage",
+                    "type": "float",
+                    "name": "Battery voltage (V)"
+                },
+                {
+                    "path": "/Dc/Charger/Power",
+                    "type": "integer",
+                    "name": "AC-Chargers - power (W)"
+                },
+                {
+                    "path": "/Dc/Pv/Current",
+                    "type": "float",
+                    "name": "MPPTs - current (A)"
+                },
+                {
+                    "path": "/Dc/Pv/Power",
+                    "type": "float",
+                    "name": "MPPTs - power (W)"
+                },
+                {
+                    "path": "/Dc/System/Power",
+                    "type": "float",
+                    "name": "DC System (W)"
+                },
+                {
+                    "path": "/Dc/Vebus/Current",
+                    "type": "float",
+                    "name": "VE.Bus charge current (A)"
+                },
+                {
+                    "path": "/Dc/Vebus/Power",
+                    "type": "float",
+                    "name": "VE.Bus charge power (W)"
+                },
+                {
+                    "path": "/Serial",
+                    "type": "string",
+                    "name": "Serial (System)"
+                },
+                {
+                    "path": "/SystemType",
+                    "type": "string",
+                    "name": "System type"
+                },
+                {
+                    "path": "/Timers/TimeOff",
+                    "type": "float",
+                    "name": "Time off (s)"
+                },
+                {
+                    "path": "/Timers/TimeOnGenerator",
+                    "type": "float",
+                    "name": "Time generator (s)"
+                },
+                {
+                    "path": "/Timers/TimeOnGrid",
+                    "type": "float",
+                    "name": "Time grid (s)"
+                },
+                {
+                    "path": "/Timers/TimeOnInverter",
+                    "type": "float",
+                    "name": "Time inverting (s)"
+                }
+            ]
+        },
+        "pathObj": {
+            "path": "/Dc/Battery/Soc",
+            "type": "float",
+            "name": "Battery State of Charge (%)"
+        },
+        "initial": "",
+        "name": "SOC",
+        "x": 150,
+        "y": 360,
+        "wires": [
+            [
+                "c09da9d4af91eb62"
+            ]
+        ]
+    },
+    {
+        "id": "a7b19ede7b1d41bb",
+        "type": "victron-input-battery",
+        "z": "e203a909ffa59ebd",
+        "service": "com.victronenergy.battery.ttyS7",
+        "path": "/Dc/0/Current",
+        "serviceObj": {
+            "service": "com.victronenergy.battery.ttyS7",
+            "name": "Battery Bank",
+            "paths": [
+                {
+                    "path": "/Alarms/Alarm",
+                    "type": "enum",
+                    "name": "Alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/Alarms/HighStarterVoltage",
+                    "type": "enum",
+                    "name": "High starter-voltage alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/Alarms/HighTemperature",
+                    "type": "enum",
+                    "name": "High battery temperature alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/Alarms/HighVoltage",
+                    "type": "enum",
+                    "name": "High voltage alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/Alarms/LowSoc",
+                    "type": "enum",
+                    "name": "Low state-of-charge alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/Alarms/LowStarterVoltage",
+                    "type": "enum",
+                    "name": "Low starter-voltage alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/Alarms/LowTemperature",
+                    "type": "enum",
+                    "name": "Low battery temperature alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/Alarms/LowVoltage",
+                    "type": "enum",
+                    "name": "Low voltage alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/Alarms/MidVoltage",
+                    "type": "enum",
+                    "name": "Mid-voltage alarm",
+                    "enum": {
+                        "0": "No alarm",
+                        "2": "Alarm"
+                    }
+                },
+                {
+                    "path": "/ConsumedAmphours",
+                    "type": "float",
+                    "name": "Consumed Amphours (Ah)"
+                },
+                {
+                    "path": "/Dc/0/Current",
+                    "type": "float",
+                    "name": "Current (A)"
+                },
+                {
+                    "path": "/Dc/0/MidVoltage",
+                    "type": "float",
+                    "name": "Mid-point voltage of the battery bank (V)"
+                },
+                {
+                    "path": "/Dc/0/MidVoltageDeviation",
+                    "type": "float",
+                    "name": "Mid-point deviation of the battery bank (%)"
+                },
+                {
+                    "path": "/Dc/0/Temperature",
+                    "type": "float",
+                    "name": "Battery temperature (C)"
+                },
+                {
+                    "path": "/Dc/0/Voltage",
+                    "type": "float",
+                    "name": "Voltage (V)"
+                },
+                {
+                    "path": "/Dc/1/Voltage",
+                    "type": "float",
+                    "name": "Starter battery voltage (V)"
+                },
+                {
+                    "path": "/History/AutomaticSyncs",
+                    "type": "float",
+                    "name": "Automatic syncs (count)"
+                },
+                {
+                    "path": "/History/AverageDischarge",
+                    "type": "float",
+                    "name": "Average discharge (Ah)"
+                },
+                {
+                    "path": "/History/ChargeCycles",
+                    "type": "float",
+                    "name": "Charge cycles (count)"
+                },
+                {
+                    "path": "/History/ChargedEnergy",
+                    "type": "float",
+                    "name": "Charged Energy (kWh)"
+                },
+                {
+                    "path": "/History/DeepestDischarge",
+                    "type": "float",
+                    "name": "Deepest discharge (Ah)"
+                },
+                {
+                    "path": "/History/DischargedEnergy",
+                    "type": "float",
+                    "name": "Discharged Energy (kWh)"
+                },
+                {
+                    "path": "/History/FullDischarges",
+                    "type": "float",
+                    "name": "Full discharges (count)"
+                },
+                {
+                    "path": "/History/HighStarterVoltageAlarms",
+                    "type": "float",
+                    "name": "High starter voltage alarms (count)"
+                },
+                {
+                    "path": "/History/HighVoltageAlarms",
+                    "type": "float",
+                    "name": "High voltage alarms (count)"
+                },
+                {
+                    "path": "/History/LastDischarge",
+                    "type": "float",
+                    "name": "Last discharge (Ah)"
+                },
+                {
+                    "path": "/History/LowStarterVoltageAlarms",
+                    "type": "float",
+                    "name": "Low starter voltage alarms (count)"
+                },
+                {
+                    "path": "/History/LowVoltageAlarms",
+                    "type": "float",
+                    "name": "Low voltage alarms (count)"
+                },
+                {
+                    "path": "/History/MaximumStarterVoltage",
+                    "type": "float",
+                    "name": "Maximum starter voltage (V DC)"
+                },
+                {
+                    "path": "/History/MaximumVoltage",
+                    "type": "float",
+                    "name": "Maximum voltage (V DC)"
+                },
+                {
+                    "path": "/History/MinimumStarterVoltage",
+                    "type": "float",
+                    "name": "Minimum starter voltage (V DC)"
+                },
+                {
+                    "path": "/History/MinimumVoltage",
+                    "type": "float",
+                    "name": "Minimum voltage (V DC)"
+                },
+                {
+                    "path": "/History/TimeSinceLastFullCharge",
+                    "type": "float",
+                    "name": "Time since last full charge (seconds)"
+                },
+                {
+                    "path": "/History/TotalAhDrawn",
+                    "type": "float",
+                    "name": "Total Ah drawn (Ah)"
+                },
+                {
+                    "path": "/Relay/0/State",
+                    "type": "enum",
+                    "name": "Relay status",
+                    "enum": {
+                        "0": "Open",
+                        "1": "Closed"
+                    }
+                },
+                {
+                    "path": "/Soc",
+                    "type": "float",
+                    "name": "State of charge (%)"
+                },
+                {
+                    "path": "/TimeToGo",
+                    "type": "float",
+                    "name": "Time to go (h)"
+                }
+            ]
+        },
+        "pathObj": {
+            "path": "/Dc/0/Current",
+            "type": "float",
+            "name": "Current (A)"
+        },
+        "initial": "",
+        "name": "Battery Current",
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "312905188c1808d8"
+            ]
+        ]
+    },
+    {
+        "id": "bb0c5334dda98e98",
+        "type": "comment",
+        "z": "e203a909ffa59ebd",
+        "name": "set Multiplier",
+        "info": "set multiply constant value to 1% of total battery bank amp hr capacity",
+        "x": 610,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "37458c5940982485",
+        "type": "comment",
+        "z": "e203a909ffa59ebd",
+        "name": "set charge efficiency",
+        "info": "set charge efficiency multiplier constant value to battery bank charge efficiency value. usually around 1.01 to 1.04 for lithium, higher for lead acid/agm",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "30030b18b0f3594c",
+        "type": "comment",
+        "z": "e203a909ffa59ebd",
+        "name": "Time to full",
+        "info": "",
+        "x": 120,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ac284dc4f2f7b556",
+        "type": "comment",
+        "z": "e203a909ffa59ebd",
+        "name": "set full soc",
+        "info": "set this value to the desired full soc level. usually 100 but some may want it lower to lengthen battery life",
+        "x": 140,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "29f036985f65b357",
+        "type": "ui_group",
+        "name": "Battery Bank",
+        "tab": "be33ae3fb7d3c370",
+        "order": 3,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "be33ae3fb7d3c370",
+        "type": "ui_tab",
+        "name": "Batteries",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
