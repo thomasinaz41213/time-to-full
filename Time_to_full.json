@@ -3,7 +3,7 @@
         "id": "e203a909ffa59ebd",
         "type": "tab",
         "label": "Charging time to full",
-        "disabled": true,
+        "disabled": false,
         "info": "",
         "env": []
     },
@@ -944,7 +944,7 @@
         "type": "comment",
         "z": "e203a909ffa59ebd",
         "name": "set Multiplier",
-        "info": "set multiply constant value to 1% of total battery bank amp hr capacity",
+        "info": "set multiply constant value to 1% of total battery bank amp hr capacity (ie. if amp hr capascity = 500 then set this to 5)",
         "x": 610,
         "y": 240,
         "wires": []
@@ -954,7 +954,7 @@
         "type": "comment",
         "z": "e203a909ffa59ebd",
         "name": "set charge efficiency",
-        "info": "set charge efficiency multiplier constant value to battery bank charge efficiency value. usually around 1.01 to 1.04 for lithium, higher for lead acid/agm",
+        "info": "set charge efficiency multiplier constant value to battery bank charge efficiency value. usually around 97% to 99% for lithium, lower for lead acid/agm (ie. if charge efficiency factor is 97% then set this value to .97; if 95% then set this to .95)",
         "x": 790,
         "y": 240,
         "wires": []
@@ -963,9 +963,9 @@
         "id": "30030b18b0f3594c",
         "type": "comment",
         "z": "e203a909ffa59ebd",
-        "name": "Time to full",
+        "name": "Time to full flow",
         "info": "",
-        "x": 120,
+        "x": 140,
         "y": 80,
         "wires": []
     },
